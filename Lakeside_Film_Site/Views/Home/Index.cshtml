@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+Welcome to the Lakeside Video Society
+<br /><br />
+@using (Html.BeginForm("SetMemberid", "Home"))
+{
+    <text>
+        Current Memberid: <input type="text" name="memberid" style="width:35px"
+                                 value="@ViewBag.memberid" />
+        <br />
+        <input type="submit" value="Set Memberid" />
+    </text>
+}@*end of beginform block*@
+

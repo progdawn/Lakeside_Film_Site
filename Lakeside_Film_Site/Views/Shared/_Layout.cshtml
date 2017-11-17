@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body style="background-color:wheat;">
+    <div class="navbar navbar-inverse navbar-fixed-top"
+         style="background-color:#c0504e;">
+        <div class="container">
+            <div class="navbar-header">
+                <div class="dropdown">
+                    &nbsp; &nbsp;
+                    <button type="button" class="btn btn-primary"
+                            id="dropdownMenu1" data-toggle="dropdown">
+                        Menu <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu"
+                        aria-labelledby="dropdownMenu1">
+                        <li> <a href="~/home/index">Home</a> </li>
+                        <li class="dropdown-header">Here are the Films</li>
+                        <li> <a href="~/film/filmlist">View Films</a> </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Members Menu</li>
+                        <li> <a href="~/member/MyProfile">My Profile</a> </li>
+                        @*add extra items here *@
+                    </ul>
+                    <span style="font-size:x-large;color:#FBD4B7;">
+                        Lakeside Video Society
+                    </span>
+                </div> @*dropdown div*@
+            </div> @*navbar-header div*@
+        </div> @*container div*@
+    </div> @*navbar div *@
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
