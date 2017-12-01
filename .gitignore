@@ -225,9 +225,10 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 
 # SQL Server files
-*.mdf
-*.ldf
-*.ndf
+#I need these on both computers!
+#*.mdf
+#*.ldf
+#*.ndf
 
 # Business Intelligence projects
 *.rdl.data

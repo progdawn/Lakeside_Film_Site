@@ -13,9 +13,13 @@ namespace Lakeside_Film_Site.Models
         
         [Required, Key]
         public int MemberID { get; set; }
+        [Required, MaxLength(50)]
         public string Email { get; set; }
+        [Required, MaxLength(50)]
         public string PWD { get; set; }
+        [Required, MaxLength(30)]
         public string MemberName { get; set; }
+        [Required, MaxLength(30)]
         public string Avatar { get; set; }
         public int Admin { get; set; }
 
