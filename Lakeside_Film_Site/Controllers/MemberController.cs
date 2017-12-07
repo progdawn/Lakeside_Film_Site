@@ -71,40 +71,6 @@ namespace Lakeside_Film_Site.Controllers
             return View("Error");
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult MyProfile(Member mem, HttpPostedFileBase uploadfile)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            if (uploadfile != null && uploadfile.ContentLength > 0)
-        //            {
-        //                var fileName = Path.GetFileName(uploadfile.FileName);
-        //                var path = Path.Combine(
-        //                Server.MapPath("~/Content/Images/Members"), fileName);
-        //                uploadfile.SaveAs(path);
-        //                mem.Avatar = fileName;
-        //            }
-        //            if (ModelState.IsValid)
-        //            {
-        //                try
-        //                {
-        //                    dbcon.Open();
-        //                    int intresult = Member.CUDMember(dbcon, "update", mem);
-        //                    dbcon.Close();
-        //                    return RedirectToAction("Index");
-        //                }
-        //                catch (Exception ex) { throw new Exception(ex.Message); }
-        //            }
-        //        }
-        //        catch (Exception ex) { throw new Exception(ex.Message); }
-        //    }
-        //    ViewBag.errmsg = "Data validation error in Edit method";
-        //    return View("Error");
-        //}
-
         public ActionResult Edit(String id = "")
         {
             try
