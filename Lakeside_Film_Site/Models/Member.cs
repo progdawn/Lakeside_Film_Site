@@ -63,7 +63,7 @@ namespace Lakeside_Film_Site.Models
             }
             else if (CUDAction == "update")
             {
-                cmd.CommandText = "update Members set MemberID = @MemberID," +
+                cmd.CommandText = "update Members set " +
                     "Email = @Email," +
                     "PWD = @PWD," +
                     "MemberName = @MemberName," +

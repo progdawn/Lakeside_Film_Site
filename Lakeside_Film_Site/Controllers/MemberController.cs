@@ -110,7 +110,7 @@ namespace Lakeside_Film_Site.Controllers
                             dbcon.Open();
                             int intresult = Member.CUDMember(dbcon, "update", mem);
                             dbcon.Close();
-                            return RedirectToAction("Index");
+                            return RedirectToAction("Index","Home");
                         }
                         catch (Exception ex) { throw new Exception(ex.Message); }
                     }

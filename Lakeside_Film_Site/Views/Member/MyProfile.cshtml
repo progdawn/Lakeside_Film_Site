@@ -1,58 +1,98 @@
 ﻿@model Lakeside_Film_Site.Models.Member
 
 @{
-    ViewBag.Title = "MyProfile";
+    ViewBag.Title = "My Profile";
 }
 
-<h2>MyProfile</h2>
+<h2>My Profile</h2>
 
-<div>
-    <h4>Member</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+@using (Html.BeginForm("Edit", "Member", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PWD)
-        </dt>
+    <div class="form-horizontal">
+        <h4>Member</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MemberID)
+        @Html.HiddenFor(model => model.Admin)
 
-        <dd>
-            @Html.DisplayFor(model => model.PWD)
-        </dd>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MemberName)
-        </dt>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PWD, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PWD, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PWD, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
-        <dd>
-            @Html.DisplayFor(model => model.MemberName)
-        </dd>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.Email, new
+       {
+           style = "max-width:440px;width:440px",
+           @maxlength = "50"
+       })
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Avatar)
-        </dt>
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.PWD, new
+       {
+           style = "width:160px",
+           @maxlength = "20"
+       })
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Avatar)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MemberName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MemberName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MemberName, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Admin)
-        </dt>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
-        <dd>
-            @Html.DisplayFor(model => model.Admin)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "control-label" })
+            <input type="text" name="Avatar" value="@Model.Avatar" readonly />
+            <input type="file" name="uploadfile" />
+            @Html.ValidationMessage("uploadfile", "Please select a file", new { @class = "text-danger" })
+        </div>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MemberID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        <div style="position: absolute; border: 1px solid black; right: 20px; z-index: -1; top: 100px">
+            <img src="~/Content/Images/Members/@Url.Content(Model.Avatar)" style="height:400px; width:400px; " />
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Admin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Admin, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Admin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
