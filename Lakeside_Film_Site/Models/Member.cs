@@ -44,6 +44,29 @@ namespace Lakeside_Film_Site.Models
             return obj;
         }
 
+        public static List<Member> GetMemberList(SqlConnection dbcon, string SqlClause)
+        {
+            List<Member> itemlist = new List<Member>();
+            string strsql = "select * from Members " + SqlClause;
+            SqlCommand cmd = new SqlCommand(strsql, dbcon);
+            SqlDataReader myReader;
+            myReader = cmd.ExecuteReader();
+            while (myReader.Read())
+            {
+                Member obj = new Member();
+                obj.MemberID = Convert.ToInt32(myReader["MemberID"].ToString());
+                obj.Email = myReader["Email"].ToString();
+                obj.PWD = myReader["PWD"].ToString();
+                obj.MemberName = myReader["MemberName"].ToString();
+                obj.Avatar = myReader["Avatar"].ToString();
+                obj.Admin = Convert.ToInt32(myReader["Admin"].ToString());
+                itemlist.Add(obj);
+            }
+            myReader.Close();
+            cmd.Dispose();
+            return itemlist;
+        }
+
         public static int CUDMember(SqlConnection dbcon, string CUDAction, Member obj)
         {
             SqlCommand cmd = new SqlCommand();
