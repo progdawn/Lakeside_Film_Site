@@ -73,7 +73,6 @@ namespace Lakeside_Film_Site.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(Member mem, HttpPostedFileBase uploadfile)
         {
             if (ModelState.IsValid)
