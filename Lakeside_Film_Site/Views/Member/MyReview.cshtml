@@ -1,0 +1,88 @@
+﻿@model Lakeside_Film_Site.Models.ViewModels.ReviewVM
+
+@{
+    ViewBag.Title = "My Reviews";
+}
+<style type="text/css">
+    .field-validation-valid, .validation-summary-valid {
+        display: none;
+    }
+    .field-validation-error {
+        color: #f00;
+    }
+    .validation-summary-errors {
+        color: #f00;
+        font-weight: bold;
+    }
+    .input-validation-error {
+        border: 2px solid #f00;
+        background-color: #fee;
+    }
+</style>
+
+@using (Html.BeginForm("MyReview", "Member", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <text>Choose a Film: </text>
+    @Html.DropDownListFor(m => m.SelectedFilmId,Model.filmlist,
+              new{style = "max-width:350px;width:350px",
+              onchange = "document.location.href='/member/myreview?id=' + this.value;"})
+
+    <input type="hidden" name="review.MemberId" value="1" />
+    <input type="hidden" name="review.FilmID" value="@Model.SelectedFilmId" />
+    <input type="hidden" name="review.ReviewDate" value="01/01/2000" />
+    <br /><br />
+
+    if (Model.review.FilmID > 0)
+    {
+            <div class="editor-label">
+                @Html.LabelFor(m => m.review.ReviewDate)
+            </div>
+            <div style="width:180px;background-color:white;">
+                @Html.DisplayFor(m => m.review.ReviewDate)
+            </div>
+    }
+    <div class="editor-label">
+       @Html.LabelFor(m => m.review.Rating)
+    </div>
+    <div class="editor-field">
+      @Html.DropDownListFor(m => m.review.Rating, new List<SelectListItem>
+          {new SelectListItem () { Value = "5" , Text = "5 - Excellant"},
+           new SelectListItem () { Value = "4" , Text = "4 - Very Good"},
+           new SelectListItem () { Value = "3" , Text = "3 - Okay"},
+           new SelectListItem () { Value = "2" , Text = "2 - Fair"},
+           new SelectListItem () { Value = "1" , Text = "1 - Awfull"}})
+    </div >
+
+    <div class="editor-label">
+            @Html.LabelFor(m => m.review.ReviewTitle)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(m => m.review.ReviewTitle,
+              new { style = "max-width:650px;width:650px",  @maxlength = "100" })<br />
+        @Html.ValidationMessageFor(m => m.review.ReviewTitle)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(m => m.review.FullReview)
+    </div>
+    <div class="editor-field">
+        @Html.TextAreaFor(m => m.review.FullReview,
+         new { @cols = 80, @rows = 12 ,  style="max-width: 650px;width:650px;" })<br />
+        @Html.ValidationMessageFor(m => m.review.FullReview)
+    </div>
+    if (Model.review.FilmID >0 )
+    {
+        @:<input type="submit" value="Update" name="btnaction" />&nbsp;
+        <input type="submit" value="Delete" name="btnaction"
+               onclick="return confirm('Are you sure?')" />
+    }
+    else
+    {
+        <input type="submit" value="Create" name="btnaction" />
+    }
+}@*end of BeginForm block*@
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
