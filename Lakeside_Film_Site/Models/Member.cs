@@ -23,7 +23,7 @@ namespace Lakeside_Film_Site.Models
         public string Avatar { get; set; }
         public int Admin { get; set; }
 
-        public static Member GetMemberSingle(SqlConnection dbcon, int id)
+        public static Member GetMemberSingle(SqlConnection dbcon, int? id)
         {
             Member obj = new Member();
             string strsql = "select * from Members where MemberID = " + id;
@@ -42,6 +42,29 @@ namespace Lakeside_Film_Site.Models
             }
             myReader.Close();
             return obj;
+        }
+
+        public static List<Member> GetMemberList(SqlConnection dbcon, string SqlClause)
+        {
+            List<Member> memberList = new List<Member>();
+            string strsql = "select * from Members " + SqlClause;
+            SqlCommand cmd = new SqlCommand(strsql, dbcon);
+            SqlDataReader myReader;
+            myReader = cmd.ExecuteReader();
+            while (myReader.Read())
+            {
+                Member obj = new Member();
+                obj.MemberID = Convert.ToInt32(myReader["MemberID"].ToString());
+                obj.Email = myReader["Email"].ToString();
+                obj.PWD = myReader["PWD"].ToString();
+                obj.MemberName = myReader["MemberName"].ToString();
+                obj.Avatar = myReader["Avatar"].ToString();
+                obj.Admin = Convert.ToInt32(myReader["Admin"].ToString());
+                memberList.Add(obj);
+            }
+            myReader.Close();
+            cmd.Dispose();
+            return memberList;
         }
 
         public static int CUDMember(SqlConnection dbcon, string CUDAction, Member obj)
