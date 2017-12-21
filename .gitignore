@@ -299,3 +299,5 @@ __pycache__/
 *.xsd.cs
 Lakeside_Film_Site/App_Data/LakeSideDB.mdf
 Lakeside_Film_Site/App_Data/LakeSideDB_log.ldf
+*.mdf
+*.ldf
