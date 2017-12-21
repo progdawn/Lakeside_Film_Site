@@ -28,6 +28,7 @@ namespace Lakeside_Film_Site.Models.ViewModels
             while (rdr.Read())
             {
                 FilmReviewVM obj = new FilmReviewVM();
+                obj.FilmId = Convert.ToInt32(rdr["FilmId"].ToString());
                 obj.Avatar = rdr["Avatar"].ToString();
                 obj.ReviewDate = Convert.ToDateTime(rdr["ReviewDate"].ToString());
                 obj.Rating = Convert.ToInt32(rdr["Rating"].ToString());

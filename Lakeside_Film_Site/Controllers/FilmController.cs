@@ -45,5 +45,33 @@ namespace Lakeside_Film_Site.Controllers
             }
             return View("error");
         }
+
+        public ActionResult ViewFilm(int id = 0)
+        {
+            ViewFilmVM viewfilmvm = new ViewFilmVM();
+            try
+            {
+                dbcon.Open();
+                viewfilmvm.reviewlist = Review.GetReviewList(dbcon);
+                if (id >= 1 && id <= 300)
+                {
+                    viewfilmvm.selectedcatid = id;
+                    string sqlcmd = "select films.* from films,FilmCategories Where " +
+                    "films.FilmID = FilmCategories.filmid " +
+                    "and categoryid = " + viewfilmvm.selectedcatid;
+                    viewfilmvm.films = Film.GetFilmList(dbcon, sqlcmd);
+                    dbcon.Close();
+                    return View(viewfilmvm);
+                }
+                dbcon.Close();
+                @ViewBag.errormsg = "Invalid data in FilmList module";
+            }
+            catch (Exception ex)
+            {
+                @ViewBag.errormsg = ex.Message;
+                if (dbcon != null && dbcon.State == ConnectionState.Open) dbcon.Close();
+            }
+            return View("error");
+        }
     }
 }
