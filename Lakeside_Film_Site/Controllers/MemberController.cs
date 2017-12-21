@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Lakeside_Film_Site.Models;
 using System.IO;
+using Lakeside_Film_Site.Models.ViewModels;
 
 namespace Lakeside_Film_Site.Controllers
 {
@@ -185,6 +186,55 @@ namespace Lakeside_Film_Site.Controllers
                 return RedirectToAction("Index");
             }
             catch (Exception ex) { throw new Exception(ex.Message); }
+        }
+
+        public ActionResult MyReview(int? id)
+        {
+            int mbrid = (int)Session["memberid"];
+            try
+            {
+                ReviewVM rvm = new ReviewVM();
+                if (dbcon.State == ConnectionState.Closed) dbcon.Open();
+                string sqlwhere = " select * from films order by title";
+                rvm.filmlist = Film.GetFilmList(dbcon, sqlwhere).Select(u => new SelectListItem
+                { Text = u.Title, Value = u.FilmID.ToString() });
+                if (id != null) rvm.SelectedFilmId = Convert.ToInt32(id.ToString());
+                else rvm.SelectedFilmId = Convert.ToInt32(rvm.filmlist.ToList()[0].Value);
+                if (rvm.filmlist.Count(x => x.Value == rvm.SelectedFilmId.ToString()) == 1)
+                {
+                    rvm.review = Review.GetReviewSingle(dbcon, rvm.SelectedFilmId, mbrid);
+                    dbcon.Close();
+                    return View(rvm);
+                }
+                @ViewBag.errormsg = "Invalid parameter";
+            }
+            catch (Exception ex) { @ViewBag.errormsg = ex.Message; }
+            if (dbcon != null && dbcon.State == ConnectionState.Open) dbcon.Close();
+            return View("error");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MyReview(Review review, string btnaction)
+        {
+            if (ModelState.IsValid)
+            {
+                review.MemberID = (int)Session["memberid"];
+                review.ReviewDate = DateTime.Now;
+                try
+                {
+                    if (dbcon.State == ConnectionState.Closed) dbcon.Open();
+                    btnaction = btnaction.ToLower();
+                    int intresult = Review.CUDReview(dbcon, btnaction, review);
+                }
+                catch (Exception ex)
+                {
+                    @ViewBag.errormsg = ex.Message;
+                    if (dbcon != null && dbcon.State == ConnectionState.Open) dbcon.Close();
+                    return View("error");
+                }
+            }
+            return RedirectToAction("MyReview", "Member", new { id = review.FilmID });
         }
     }
 }
