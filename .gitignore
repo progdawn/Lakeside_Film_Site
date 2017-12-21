@@ -225,10 +225,9 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 
 # SQL Server files
-#I need these on both computers!
-#*.mdf
-#*.ldf
-#*.ndf
+*.mdf
+*.ldf
+*.ndf
 
 # Business Intelligence projects
 *.rdl.data
@@ -298,3 +297,5 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+Lakeside_Film_Site/App_Data/LakeSideDB.mdf
+Lakeside_Film_Site/App_Data/LakeSideDB_log.ldf
