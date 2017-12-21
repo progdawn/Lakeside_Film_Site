@@ -42,8 +42,7 @@
     <div>
         @Html.ActionLink("Back to List", "FilmList")
     </div>
-    @using (Html.BeginForm(null, null, FormMethod.Post,
-                                      new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.ValidationSummary(false)
 

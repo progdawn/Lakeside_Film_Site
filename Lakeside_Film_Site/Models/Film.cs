@@ -7,13 +7,13 @@ using System.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace Lakeside_File_Site.Models
+namespace Lakeside_Film_Site.Models
 {
     public class Film
     {
-        [Required,Key]
+        [Required, Key]
         public int FilmID { get; set; }
-        [Required,MaxLength(100)]
+        [Required, MaxLength(100)]
         public string Title { get; set; }
         [Required, MaxLength(100)]
         public string Link { get; set; }
@@ -48,7 +48,7 @@ namespace Lakeside_File_Site.Models
             return obj;
         }
 
-        public static List<Film> GetFilmList(SqlConnection dbcon,string sqlcmd)
+        public static List<Film> GetFilmList(SqlConnection dbcon, string sqlcmd)
         {
             List<Film> itemlist = new List<Film>();
             SqlCommand cmd = new SqlCommand(sqlcmd, dbcon);
@@ -86,7 +86,7 @@ namespace Lakeside_File_Site.Models
             }
             else if (CUDAction == "update")
             {
-                cmd.CommandText = "update Films set Title = @Title, Link = @Link, "+
+                cmd.CommandText = "update Films set Title = @Title, Link = @Link, " +
                                   "YearMade = @YearMade, Imagefile = @Imagefile, " +
                                   "Synopsis = @Synopsis, Resources = @Resources " +
                                   "Where FilmID = @FilmID";

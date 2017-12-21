@@ -1,5 +1,4 @@
-﻿using Lakeside_File_Site.Models;
-using Lakeside_Film_Site.Models;
+﻿using Lakeside_Film_Site.Models;
 using Lakeside_Film_Site.Models.ViewModels;
 using System;
 using System.Collections.Generic;
