@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using Lakeside_Film_Site.Models;
 using System.Data;
 using System.IO;
+using Lakeside.Models;
+using Lakeside.Models.ViewModels;
 
 namespace Lakeside_Film_Site.Controllers
 {
@@ -103,6 +105,119 @@ namespace Lakeside_Film_Site.Controllers
             }
             ViewBag.errmsg = "Data validation error in Edit method";
             return View("Error");
+        }
+
+        public ActionResult FilmList()
+        {
+            try
+            {
+                dbcon.Open();
+                List<Film> filmlist = Film.GetFilmList(dbcon, "select * from films");
+                dbcon.Close();
+                return View(filmlist);
+            }
+            catch (Exception ex)
+            {
+                @ViewBag.errormsg = ex.Message;
+                if (dbcon != null && dbcon.State == ConnectionState.Open) dbcon.Close();
+                return View("error");
+            }
+        }
+
+        public ActionResult FilmCreate()
+        {
+            Film film = new Film();
+            film.Title = "a new film";
+            film.YearMade = 0;
+            film.Link = "xx";
+            film.Imagefile = "xx";
+            film.Resources = "zz";
+            film.Synopsis = "xx";
+            try
+            {
+                dbcon.Open();
+                int intresult = Film.CUFilm(dbcon, "create", film);
+                dbcon.Close();
+                return RedirectToAction("FilmList", "Admin");
+            }
+            catch (Exception ex)
+            {
+                @ViewBag.errormsg = ex.Message;
+                if (dbcon != null && dbcon.State == ConnectionState.Open) dbcon.Close();
+                return View("error");
+            }
+        }
+        public ActionResult FilmDelete(int id)
+        {
+            try
+            {
+                dbcon.Open();
+                // int intresult = Film.FilmDelete(dbcon, id);
+                dbcon.Close();
+                return RedirectToAction("FilmList", "Admin");
+            }
+            catch (Exception ex)
+            {
+                @ViewBag.errormsg = ex.Message;
+                if (dbcon != null && dbcon.State == ConnectionState.Open) dbcon.Close();
+                return View("error");
+            }
+        }
+
+        public ActionResult FilmEdit(int id)
+        {
+            try
+            {
+                List<Film> filmlist = new List<Film>();
+                FilmEditVM filmvm = new FilmEditVM();
+                dbcon.Open();
+                filmlist = Film.GetFilmList(dbcon,
+                    "select * from films where filmid = " + id);
+                filmvm.film = filmlist.FirstOrDefault();
+                filmvm.FilmCatList = CheckModelVM.GetCheckModelList(dbcon, id);
+                dbcon.Close();
+                return View(filmvm);
+            }
+            catch (Exception ex)
+            {
+                @ViewBag.errormsg = ex.Message;
+                if (dbcon != null && dbcon.State == ConnectionState.Open) dbcon.Close();
+                return View("error");
+            }
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult FilmEdit(FormCollection fc, HttpPostedFileBase UploadFile)
+        {
+            Film film = new Film();
+            TryUpdateModel<Film>(film, fc);
+
+            if (UploadFile != null)
+            {
+                var fileName = Path.GetFileName(UploadFile.FileName);
+                var filePath = Server.MapPath("/Content/Images/Films");
+                string savedFileName = Path.Combine(filePath, fileName);
+                UploadFile.SaveAs(savedFileName);
+                film.Imagefile = fileName;
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    dbcon.Open();
+                    int intresult = Film.CUFilm(dbcon, "update", film);
+                    FilmCategory.UpdateCategories(dbcon, fc);
+                    dbcon.Close();
+                }
+                catch (Exception ex)
+                {
+                    @ViewBag.errormsg = ex.Message;
+                    if (dbcon != null && dbcon.State == ConnectionState.Open) dbcon.Close();
+                    return View("error");
+                }
+            }
+            return RedirectToAction("FilmList", "Admin");
         }
     }
 }
