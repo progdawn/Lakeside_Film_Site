@@ -8,8 +8,8 @@ using System.Web.Mvc;
 using Lakeside_Film_Site.Models;
 using System.Data;
 using System.IO;
-using Lakeside.Models;
-using Lakeside.Models.ViewModels;
+using Lakeside_Film_Site.Models.ViewModels;
+using Lakeside_File_Site.Models;
 
 namespace Lakeside_Film_Site.Controllers
 {

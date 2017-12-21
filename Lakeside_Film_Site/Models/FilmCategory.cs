@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace Lakeside.Models
+namespace Lakeside_File_Site.Models
 {
     public class FilmCategory
     {

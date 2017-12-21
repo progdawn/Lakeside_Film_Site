@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Lakeside.Models;
+using Lakeside_File_Site.Models;
 
-namespace Lakeside.Models.ViewModels
+namespace Lakeside_Film_Site.Models.ViewModels
 {
     public class FilmEditVM
     {

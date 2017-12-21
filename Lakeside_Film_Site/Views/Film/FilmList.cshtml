@@ -1,0 +1,21 @@
+﻿@model Lakeside_Film_Site.Models.ViewModels.FilmListVM
+@{
+    ViewBag.Title = "FilmList";
+}
+<text>Choose a Category: </text>
+@Html.DropDownListFor(m => m.selectedcatid, Model.catlist, new
+{
+    onchange = "document.location.href='/film/filmlist?id=' + this.value;"
+})
+<br /><br />
+@foreach (var item in Model.films)
+{
+    @Html.ActionLink(@item.Title, "ViewFilm", new { id = @item.FilmID })
+    <br />
+    <img src="~/content/images/films/@item.Imagefile"
+         style="Width:130px;Height:200px;" />
+    <span style="width:600px">
+        @Html.Raw(@item.Synopsis.ToString().Replace(Environment.NewLine, "<br />"))
+    </span>
+    <br />
+}@*foreach loop*@

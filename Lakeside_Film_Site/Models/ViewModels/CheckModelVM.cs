@@ -5,7 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Lakeside.Models
+namespace Lakeside_Film_Site.Models
 {
     public class CheckModelVM
     {

@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace Lakeside.Models
+namespace Lakeside_File_Site.Models
 {
     public class Film
     {
