@@ -140,7 +140,9 @@
     <Compile Include="Models\ViewModels\CheckModelVM.cs" />
     <Compile Include="Models\ViewModels\FilmEditVM.cs" />
     <Compile Include="Models\ViewModels\FilmListVM.cs" />
+    <Compile Include="Models\ViewModels\FilmReviewVM.cs" />
     <Compile Include="Models\ViewModels\ReviewVM.cs" />
+    <Compile Include="Models\ViewModels\ViewFilmVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

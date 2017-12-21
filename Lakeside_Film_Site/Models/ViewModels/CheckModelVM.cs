@@ -12,6 +12,7 @@ namespace Lakeside_Film_Site.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public bool Checked { get; set; }
+
         public static List<CheckModelVM> GetCheckModelList(SqlConnection dbcon, int id)
         {
             List<CheckModelVM> itemlist = new List<CheckModelVM>();
