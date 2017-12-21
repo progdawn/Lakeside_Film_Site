@@ -105,7 +105,7 @@ namespace Lakeside_Film_Site.Controllers
         //    return View("Error");
         //}
 
-        public ActionResult Edit(String id = "")
+        public ActionResult Edit(int? id)
         {
             try
             {
@@ -155,7 +155,7 @@ namespace Lakeside_Film_Site.Controllers
             return View("Error");
         }
 
-        public ActionResult Delete(String id)
+        public ActionResult Delete(int? id)
         {
             try
             {
@@ -172,7 +172,7 @@ namespace Lakeside_Film_Site.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id, FormCollection fc)
+        public ActionResult Delete(int? id, FormCollection fc)
         {
             Member mem = new Models.Member();
             mem.MemberID = Convert.ToInt32(id);

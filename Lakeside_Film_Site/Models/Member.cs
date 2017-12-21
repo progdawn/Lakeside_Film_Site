@@ -13,7 +13,6 @@ namespace Lakeside_Film_Site.Models
         
         [Required, Key]
         public int MemberID { get; set; }
-        [Required, MaxLength(50)]
         public string Email { get; set; }
         [Required, MaxLength(50)]
         public string PWD { get; set; }
@@ -86,8 +85,7 @@ namespace Lakeside_Film_Site.Models
             }
             else if (CUDAction == "update")
             {
-                cmd.CommandText = "update Members set MemberID = @MemberID," +
-                    "Email = @Email," +
+                cmd.CommandText = "update Members set Email = @Email," +
                     "PWD = @PWD," +
                     "MemberName = @MemberName," +
                     "Avatar = @Avatar," +
@@ -99,6 +97,7 @@ namespace Lakeside_Film_Site.Models
                 cmd.Parameters.AddWithValue("@MemberName", SqlDbType.VarChar).Value = obj.MemberName;
                 cmd.Parameters.AddWithValue("@Avatar", SqlDbType.VarChar).Value = obj.Avatar;
                 cmd.Parameters.AddWithValue("@Admin", SqlDbType.Int).Value = obj.Admin;
+
             }
             else if (CUDAction == "delete")
             {
