@@ -52,19 +52,19 @@ namespace Lakeside_Film_Site.Controllers
             try
             {
                 dbcon.Open();
-                viewfilmvm.reviewlist = Review.GetReviewList(dbcon);
+                viewfilmvm.reviewlist = FilmReviewVM.GetFilmReviewVMList(dbcon, id);
                 if (id >= 1 && id <= 300)
                 {
-                    viewfilmvm.selectedcatid = id;
-                    string sqlcmd = "select films.* from films,FilmCategories Where " +
-                    "films.FilmID = FilmCategories.filmid " +
-                    "and categoryid = " + viewfilmvm.selectedcatid;
-                    viewfilmvm.films = Film.GetFilmList(dbcon, sqlcmd);
+                    viewfilmvm.selectedfilm = Film.GetFilmSingle(dbcon, id);
+                    //string sqlcmd = "select films.* from films,FilmCategories Where " +
+                    //"films.FilmID = FilmCategories.filmid " +
+                    //"and categoryid = " + viewfilmvm.selectedfilm;
+                    //viewfilmvm.films = Film.GetFilmList(dbcon, sqlcmd);
                     dbcon.Close();
                     return View(viewfilmvm);
                 }
                 dbcon.Close();
-                @ViewBag.errormsg = "Invalid data in FilmList module";
+                @ViewBag.errormsg = "Invalid data in ViewFilm module";
             }
             catch (Exception ex)
             {
